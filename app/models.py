@@ -8,15 +8,15 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), unique=True)
     email = db.Column(db.String(40), unique=True)
-    reservations = db.relationship("Reservation", backref="user", lazy="dynamic")
+    reservations = db.relationship(
+        "Reservation", backref="user", lazy="dynamic")
 
     def __init__(self, username, email):
         self.username = username
         self.email = email
 
     def __repr__(self):
-         return "<User {} >".format(self.username)
-
+        return "<User {} >".format(self.username)
 
 
 class UserSchema(ma.Schema):
@@ -35,6 +35,9 @@ class Slot(db.Model):
         self.lat = lat
         self.lng = lng
         self.available = available
+
+    def __repr__(self):
+        return {"lat": "foo"}
 
 
 class SlotSchema(ma.Schema):
@@ -59,10 +62,10 @@ class Reservation(db.Model):
 class ReservationSchema(ma.Schema):
     class Meta:
         fields = (
-                "state",
-                "active",
-                "start_time",
-                "end_time",
-                "cost",
-                "slot_id",
-                "user_id")
+            "state",
+            "active",
+            "start_time",
+            "end_time",
+            "cost",
+            "slot_id",
+            "user_id")

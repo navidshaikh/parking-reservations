@@ -1,6 +1,12 @@
 from flask import request, jsonify
-from app import app, db, ma
+from app import app, db
 from models import User, Slot, Reservation
+from models import UserSchema, SlotSchema, ReservationSchema
+
+
+user_schema = UserSchema(many=True)
+slot_schema = SlotSchema(many=True)
+res_schema = ReservationSchema(many=True)
 
 
 @app.route("/")
@@ -43,9 +49,27 @@ def add_parking_slot():
     return "Added slot."
 
 
+@app.route("/get_slot", methods=["GET"])
+def get_available_slots():
+    available_slots = Slot.query.filter_by(available=True).all()
+    result = slot_schema.dump(available_slots)
+    print "Available slots.."
+    print result.data
+    return jsonify(result.data)
+
+
+@app.route("/users", methods=["GET"])
+def get_all_users():
+    all_users = User.query.all()
+    result = user_schema.dump(all_users)
+    print "Available all users.."
+    print result.data
+    return jsonify(result.data)
+
+
 @app.route("/make_reservation", methods=["POST"])
 def make_reservation():
-    pass
+    return "To be implemented"
 
 
 if __name__ == "__main__":
