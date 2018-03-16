@@ -28,7 +28,7 @@ def add_user():
     db.session.add(new_user)
     db.session.commit()
 
-    return "Added!"
+    return jsonify({"success": True, "comments": "Added user."})
 
 
 @app.route("/slot", methods=["POST"])
@@ -46,7 +46,7 @@ def add_parking_slot():
     db.session.add(new_slot)
     db.session.commit()
 
-    return "Added slot."
+    return jsonify({"success": True, "comments": "Added slot."})
 
 
 @app.route("/get_slot", methods=["GET"])
