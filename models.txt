@@ -1,0 +1,24 @@
+slots
+-----
+- id
+- lat
+- lng
+- available
+
+user
+----
+- phone number
+- name
+- email
+- reservations
+
+reservation
+-----------
+- id
+- slot_id
+- user_id
+- active
+- state
+- start_time
+- end_time
+- cost
